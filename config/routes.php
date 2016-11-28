@@ -11,5 +11,5 @@
 $route['/'] = "/";
 $route['/dogs'] = "dogs";
 $route['/about'] = "test";
-$route['/about/name/.+'] = "test/name";
-$route['about/name/.+/age/.+'] = "test/nameage";
+$route['/about/name/:param'] = "test/name";
+$route['about/name/:param/age/:param'] = "test/nameage";

@@ -114,13 +114,13 @@ $route['/about'] = "test";
 Here, we are routing ```/about``` to execute the get_index() of the Test class.
 
 ```
-$route['/about/name/.+'] = "test/name";
+$route['/about/name/:param'] = "test/name";
 ```
-We can also add parameters by putting ```.+``` in the place wherein we expect a parameter.
-This route will invoke the get_name($a) function of Test class, passing any value in place of the ```.+``` to the function.
+We can also add parameters by putting ```:param``` in the place wherein we expect a parameter.
+This route will invoke the get_name($a) function of Test class, passing any value in place of the ```:param``` to the function.
 
 ```
-$route['about/name/.+/age/.+'] = "test/nameage";
+$route['about/name/:param/age/:param'] = "test/nameage";
 ```
 This project also supports multiple parameters. In this example we passed a name and age in that format. By this route, we tell our REST server to invoke the get_nameage($name, $age) method in the Test class. Also, passing the all the parameters.
 

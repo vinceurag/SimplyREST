@@ -19,9 +19,9 @@ class Routes
     }
 
     public function exec() {
-
         if(isset($_REQUEST['uri'])) {
             $uriGet = rtrim($_REQUEST['uri'], '/');
+
         } else {
             $uriGet = '/';
         }
@@ -32,6 +32,9 @@ class Routes
         $isMatchKey = null;
 
         foreach ($this->_uriList as $listKey => $listUri) {
+            if(strpos($listUri, ':param')) {
+                $listUri = str_replace(":param", ".+", $listUri);
+            }
             if (preg_match("#^$listUri$#", $uriGet)) {
                 $ctr_list = count(explode("/", rtrim($listUri, '/')));
                 $ctr_getUri = count(explode("/", rtrim($uriGet, '/')));
