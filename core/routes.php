@@ -69,7 +69,7 @@ class Routes
         } else {
             header('Content-Type: application/json');
             http_response_code(404);
-            echo json_encode(array("error" => "no routes matched"));
+            echo json_encode(array("error" => "no routes matched", "details" => "check if routes has been configured properly"));
         }
     }
 }
