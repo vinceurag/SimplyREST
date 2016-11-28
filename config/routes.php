@@ -8,7 +8,7 @@
  * @author Vince Urag
  */
 
-$route['/'] = "/";
+$route['/'] = "index";
 $route['/dogs'] = "dogs";
 $route['/about'] = "test";
 $route['/about/name/:param'] = "test/name";

@@ -13,9 +13,12 @@ class Routes
     private $_callList = array();
 
     public function add($uri, $method = null) {
-        $this->_uriList[] = trim($uri, '/\^$');
+        if($uri == '/') {
+            $this->_uriList[] = $uri;
+        } else {
+            $this->_uriList[] = trim($uri, '/\^$');
+        }
         $this->_callList[] = $method;
-
     }
 
     public function exec() {
@@ -55,6 +58,7 @@ class Routes
                     $replacementValues[] = $realUri[$key];
                 }
             }
+
             if(count($fakeUri) == 1) {
                 $class_name = $this->_callList[$isMatchKey];
                 $obj = new $class_name();
@@ -64,7 +68,11 @@ class Routes
                 $method_exec = explode("/", $this->_callList[$isMatchKey]);
                 $class_name = $method_exec[0];
                 $obj = new $class_name();
-                $method_exec = $http_method."_".$method_exec[1];
+                if(count($method_exec) < 2) {
+                    $method_exec = $http_method."_".$method_exec[0];
+                } else {
+                    $method_exec = $http_method."_".$method_exec[1];
+                }
                 call_user_func_array(array($obj, $method_exec), $replacementValues);
             } else {
                 echo "No routes found";

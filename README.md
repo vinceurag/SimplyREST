@@ -33,12 +33,20 @@ $db['database'] = 'test_db';
 ```
 
 Test if it's working.
-Go to ```<server>/<directory where you put this project>/SimplyREST/about/name/Vince```
+Go to ```<server>/<directory where you put this project>/SimplyREST/```
+For example you're using XAMPP and you cloned this project to ```htdocs```, you need to go to
+```
+http://localhost/SimplyREST/
+```
 You should see something like:
 
 ```
-Vince
+{
+"status" : "successful",
+"details" : "framework was installed successfully"
+}
 ```
+
 Play around with the controllers on ```/api```
 
 ## How To Use
