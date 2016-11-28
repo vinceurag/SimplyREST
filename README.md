@@ -93,7 +93,7 @@ The structure of the route should always be
 class_name/function_name/
 ```
 
-Customizing Routes
+#### Customizing Routes
 
 ## Deployment
 
