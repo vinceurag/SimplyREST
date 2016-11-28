@@ -26,4 +26,8 @@ class Test extends SR_Controller {
     public function post_index() {
         echo "This is the post_index page";
     }
+
+    public function get_nameage($name, $age) {
+        echo "Name: {$name} \n Age: {$age}";
+    }
 }

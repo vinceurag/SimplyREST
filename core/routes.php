@@ -41,20 +41,17 @@ class Routes
                 }
                 $realUri = explode('/', $uriGet);
                 $fakeUri = explode('/', $listUri);
-
-                foreach ($fakeUri as $key => $value)
-                {
-                    if ($value == '.+')
-                    {
-                        $replacementValues[] = $realUri[$key];
-                    }
-                }
             }
         }
 
         if($isMatch == true) {
-
-
+            foreach ($fakeUri as $key => $value)
+            {
+                if ($value == '.+')
+                {
+                    $replacementValues[] = $realUri[$key];
+                }
+            }
             if(count($fakeUri) == 1) {
                 $class_name = $this->_callList[$isMatchKey];
                 $obj = new $class_name();
