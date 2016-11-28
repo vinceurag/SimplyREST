@@ -89,9 +89,11 @@ If the SQL statement is a ```SELECT``` statement, this function will return an a
 Routes are the heart and soul of this project. It will determine which class and function will be called.
 
 The structure of the route should always be
-```class_name/function_name/```
+```
+class_name/function_name/
+```
 
-#### Customizing Routes
+Customizing Routes
 
 ## Deployment
 
