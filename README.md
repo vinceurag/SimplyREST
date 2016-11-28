@@ -95,6 +95,26 @@ class_name/function_name/
 
 #### Customizing Routes
 
+You can customize the routes in the ```config/routes.php``` folder.
+
+```
+$route['/about'] = "test";
+```
+Here, we are routing ```/about``` to execute the get_index() of the Test class.
+
+```
+$route['/about/name/.+'] = "test/name";
+```
+We can also add parameters by putting ```.+``` in the place wherein we expect a parameter.
+This route will invoke the get_name($a) function of Test class, passing any value in place of the ```.+``` to the function.
+
+```
+$route['about/name/.+/age/.+'] = "test/nameage";
+```
+This project also supports multiple parameters. In this example we passed a name and age in that format. By this route, we tell our REST server to invoke the get_nameage($name, $age) method in the Test class. Also, passing the all the parameters.
+
+
+
 ## Deployment
 
 Since some shared hosting does not read directly from the .htaccess, you may want to enter it manually or ask some help from your hosting provider.
