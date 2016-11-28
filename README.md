@@ -139,11 +139,11 @@ When contributing to this repository, please first discuss the change you wish t
 
 * **Vince Urag** - *Initial work* - [Twitter](https://twitter.com/MrStreetGrid)
 
-See also the list of [contributors](https://github.com/vinceurag/SimplyREST/blob/master/CONTRIBUTORS.md) who participated in this project.
+See also the list of [contributors](CONTRIBUTORS.md) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) file for details
 
 ## Acknowledgments
 
