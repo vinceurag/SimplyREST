@@ -9,6 +9,6 @@
             "email": "vinceuragvfx@gmail.com"
         }
     ],
-    "minimum-stability": "beta",
+    "minimum-stability": "stable",
     "require": {}
 }
