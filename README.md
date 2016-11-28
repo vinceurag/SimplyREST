@@ -139,7 +139,7 @@ When contributing to this repository, please first discuss the change you wish t
 
 * **Vince Urag** - *Initial work* - [Twitter](https://twitter.com/MrStreetGrid)
 
-See also the list of [contributors](CONTRIBUTORS.MD) who participated in this project.
+See also the list of [contributors](https://github.com/vinceurag/SimplyREST/blob/master/CONTRIBUTORS.md) who participated in this project.
 
 ## License
 
