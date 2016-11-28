@@ -73,6 +73,26 @@ $this->load_model($model_name)
 ```
 ```$model_name``` is the class name of your model. You should load the model in your controller's constructor. To use the loaded model, you just need to append the ```model_name``` to ```$this->```. For example, I loaded the model ```anothermodel``` in the constructor ```$this->load_model("anothermodel")```, to access it inside the functions in my controller, I can call ```$this->anothermodel->getUser()``` assuming there is a getUser()  function inside my model.
 
+### Models
+
+Models are located under ```/models```
+Every model MUST extend the SR_Model.
+
+To make a query to the database, use the function:
+```
+$this->db->exec("SELECT * FROM tbl_users");
+```
+If the SQL statement is a ```SELECT``` statement, this function will return an array of the result (which you can directly send as a response in the controller). Else, this will return a bool.
+
+### Routes
+
+Routes are the heart and soul of this project. It will determine which class and function will be called.
+
+The structure of the route should always be
+```class_name/function_name/```
+
+#### Customizing Routes
+
 ## Deployment
 
 Since some shared hosting does not read directly from the .htaccess, you may want to enter it manually or ask some help from your hosting provider.
