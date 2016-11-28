@@ -15,7 +15,7 @@ class Dogs extends SR_Controller {
 
     public function get_index() {
         $result = $this->model->getUsers();
-        $this->sendResponse($result, 200);
+        $this->sendResponse($result, HTTP_Status::HTTP_OK);
 
     }
 
@@ -36,7 +36,7 @@ class Dogs extends SR_Controller {
         if($myArray['success'] == "yes") {
             $this->sendResponse($resArray, 200);
         } else {
-            $this->sendResponse(array("title" => "error"), 404);
+            $this->sendResponse(array("title" => "error"), HTTP_Status::HTTP_NOT_FOUND);
         }
     }
 }

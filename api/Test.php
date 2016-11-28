@@ -16,7 +16,7 @@ class Test extends SR_Controller {
     public function get_index() {
         $response = $this->anothermodel->getDummyData();
 
-        $this->sendResponse($response, 200);
+        $this->sendResponse($response, HTTP_Status::HTTP_OK);
     }
 
     public function get_name($a){

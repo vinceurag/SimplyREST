@@ -57,9 +57,20 @@ If the user accessed /name using the GET method, this method will be invoked. El
 
 To send a response, use the function:
 ```
-$this->sendResponse($arrayData, 200)
+$this->sendResponse($arrayData, HTTP_Status::HTTP_OK)
 ```
 ```$this->sendResponse()``` takes in two parameters, the data you want to be the response body (in array) and a status code.
+
+Status codes are defined in ```core/HTTP_Status.php```
+```
+HTTP_OK = 200
+
+HTTP_CREATED = 201
+
+HTTP_NOT_FOUND = 404
+
+HTTP_UNAUTHORIZED = 401
+```
 
 To access the POST or PUT json sent to the server, use the function:
 ```

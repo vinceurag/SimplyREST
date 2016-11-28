@@ -11,6 +11,7 @@ class SR_Controller extends SR_Model {
 
     public function __construct() {
         parent::__construct();
+        include APP_PATH."core/HTTP_Status.php";
     }
 
     /**
