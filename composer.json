@@ -1,0 +1,14 @@
+{
+    "name": "vinceurag/simply-rest",
+    "description": "A simple REST server written in PHP.",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Vince Urag",
+            "email": "vinceuragvfx@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta",
+    "require": {}
+}
