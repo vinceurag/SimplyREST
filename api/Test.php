@@ -10,7 +10,8 @@ class Test extends SR_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load_model("anothermodel");
+        $this->load("anothermodel");
+        $this->load("jwt");
     }
 
     public function get_index() {
@@ -19,13 +20,6 @@ class Test extends SR_Controller {
         $this->sendResponse($response, HTTP_Status::HTTP_OK);
     }
 
-    public function get_name($a){
-        echo $a;
-    }
-
-    public function post_index() {
-        echo "This is the post_index page";
-    }
 
     public function get_nameage($name, $age) {
         echo "Name: {$name} \n Age: {$age}";

@@ -9,7 +9,8 @@
  */
 
 $route['/'] = "index";
-$route['/dogs'] = "dogs";
+$route['/users'] = "users";
 $route['/about'] = "test";
-$route['/about/name/:param'] = "test/name";
+$route['/users/:param/edit'] = "users/edit";
+$route['/users/signin'] = "users/signin";
 $route['about/name/:param/age/:param'] = "test/nameage";

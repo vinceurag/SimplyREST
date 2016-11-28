@@ -24,12 +24,15 @@ function __autoload($class_name) {
         require_once("core/".$class_name.".php");
     } else if (is_file("models/".$class_name.".php")){
         require_once("models/".$class_name.".php");
+    } else if (is_file("libraries/".$class_name.".php")){
+        require_once("libraries/".$class_name.".php");
     }
 }
 
 // require the core class
 require_once("core/core.php");
 $core = Core::singleton();
+$core->getDbData();
 
 
 // test installation

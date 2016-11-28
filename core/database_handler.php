@@ -59,6 +59,37 @@ class DatabaseHandler {
     }
 
     /**
+     * Update records in the database
+     * @param String the table
+     * @param array of changes field => value
+     * @param String the condition
+     * @return bool
+     */
+    public function update_record( $table, $changes, $condition )
+    {
+        $update = "UPDATE " . $table . " SET ";
+        foreach( $changes as $field => $value )
+        {
+            $update .= "`" . $field . "`='{$value}',";
+        }
+
+        // remove our trailing ,
+        $update = substr($update, 0, -1);
+        if( $condition != '' )
+        {
+            $update .= "WHERE " . $condition;
+        }
+
+        $query = $this->connection->query($update);
+        if($query) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
      * Gets the number of affected rows from the previous query
      * @return int the number of affected rows
      */

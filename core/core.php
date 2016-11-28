@@ -49,9 +49,9 @@ class Core {
 
         include APP_PATH."config/database.php";
 
-        $database = $db;
+        self::$database = $db;
 
-        return $database;
+        return self::$database;
     }
 
 

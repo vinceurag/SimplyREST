@@ -15,12 +15,14 @@ class SR_Controller extends SR_Model {
     }
 
     /**
-     * Load the needed model
-     * @param  string $model_name name of the model you want to load_model
+     * Load the needed model or library
+     * @param  string $class_name name of the model/library you want to load()
      */
-    public function load_model($model_name) {
-        if(is_file(APP_PATH."models/".$model_name.".php")) {
-            $this->$model_name = new $model_name();
+    public function load($class_name) {
+        if(is_file(APP_PATH."models/".$class_name.".php")) {
+            $this->$class_name = new $class_name();
+        } else if(is_file(APP_PATH."libraries/".$class_name.".php")) {
+            $this->$class_name = new $class_name();
         }
     }
 

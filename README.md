@@ -52,6 +52,7 @@ Play around with the controllers on ```/api```
 ## How To Use
 
 ``` DO NOT MODIFY ANYTHING IN THE /core FOLDER AND index.php ```
+``` SAMPLE DATABASE SCHEMA IN config/test_db.sql ```
 
 ### Controllers
 
@@ -88,7 +89,7 @@ This function will return the json sent to the server in an array format.
 
 To load the model, use the function:
 ```
-$this->load_model($model_name)
+$this->load("model_name")
 ```
 ```$model_name``` is the class name of your model. You should load the model in your controller's constructor. To use the loaded model, you just need to append the ```model_name``` to ```$this->```. For example, I loaded the model ```anothermodel``` in the constructor ```$this->load_model("anothermodel")```, to access it inside the functions in my controller, I can call ```$this->anothermodel->getUser()``` assuming there is a getUser()  function inside my model.
 
@@ -102,6 +103,13 @@ To make a query to the database, use the function:
 $this->db->exec("SELECT * FROM tbl_users");
 ```
 If the SQL statement is a ```SELECT``` statement, this function will return an array of the result (which you can directly send as a response in the controller). Else, this will return a bool.
+
+To ```UPDATE``` a row, use the function:
+```
+$this->db->udapte_record($table, $arrayChanges, "id=condition");
+```
+If a record was successfully updated, it will return a success json.
+
 
 ### Routes
 
@@ -132,6 +140,44 @@ $route['about/name/:param/age/:param'] = "test/nameage";
 ```
 This project also supports multiple parameters. In this example we passed a name and age in that format. By this route, we tell our REST server to invoke the get_nameage($name, $age) method in the Test class. Also, passing the all the parameters.
 
+### Libraries
+
+Libraries are located under ```/libraries```
+
+You should load the needed libraries in the constructor of the controller via the command:
+```
+$this->load("library_name")
+```
+
+#### JSON Web Token Library
+
+The JWT Library can be used to generate a token.
+
+To generate a token:
+```
+$this->jwt->generate_token($user_id, $arrayPayload)
+```
+```$user_id``` is the unique identifier of the user.
+```$arrayPayload``` is the custom payload you want to add to the token
+
+To check if the user passed a VALID json web token to the authorization header:
+```
+$this->jwt->check()
+```
+If it's a valid token, it will return the decoded token and the authorization status ("authorized" or "unauthorized").
+Sample response:
+```
+{
+  "consumerKey": "YOUR-CONSUMER-KEY",
+  "userId": 1,
+  "issuedAt": "11/29/2016 00:47:42 AMNov",
+  "data": {
+    "name": "New Name",
+    "pass": "new_pass"
+  },
+  "authorization": "authorized"
+}
+```
 
 
 ## Deployment
@@ -156,3 +202,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE) f
 ## Acknowledgments
 
 * [JREAM](https://bitbucket.org/JREAM/) - idea for the routing
+* [Neuman Vong](https://github.com/luciferous) - JWT Library

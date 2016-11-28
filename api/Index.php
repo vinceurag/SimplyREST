@@ -10,7 +10,6 @@ class Index extends SR_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load_model("model");
     }
 
     public function get_index() {
