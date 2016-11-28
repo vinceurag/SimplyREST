@@ -43,7 +43,35 @@ Play around with the controllers on ```/api```
 
 ## How To Use
 
+``` DO NOT MODIFY ANYTHING IN THE /core FOLDER AND index.php ```
 
+### Controllers
+
+Controllers are located under ```/api```
+Every controller MUST extend the SR_Controller.
+
+This REST server supports the most common 4 HTTP Methods: ```GET, POST, PUT, DELETE```.
+
+When creating a function, this should be the format: ```HTTPMETHOD_functionname()```. For example, get_name().
+If the user accessed /name using the GET method, this method will be invoked. Else, if the user accessed it via POST method, the post_name will be invoked.
+
+To send a response, use the function:
+```
+$this->sendResponse($arrayData, 200)
+```
+```$this->sendResponse()``` takes in two parameters, the data you want to be the response body (in array) and a status code.
+
+To access the POST or PUT json sent to the server, use the function:
+```
+$anyVariable $this->getJsonData()
+```
+This function will return the json sent to the server in an array format.
+
+To load the model, use the function:
+```
+$this->load_model($model_name)
+```
+```$model_name``` is the class name of your model. You should load the model in your controller's constructor. To use the loaded model, you just need to append the ```model_name``` to ```$this->```. For example, I loaded the model ```anothermodel``` in the constructor ```$this->load_model("anothermodel")```, to access it inside the functions in my controller, I can call ```$this->anothermodel->getUser()``` assuming there is a getUser()  function inside my model.
 
 ## Deployment
 
