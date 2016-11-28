@@ -31,10 +31,6 @@ function __autoload($class_name) {
 require_once("core/core.php");
 $core = Core::singleton();
 
-// connect to database
-require_once('core/database_handler.php');
-$db = new DatabaseHandler();
-$db->newConnection();
 
 // test installation
 // echo $core->testInstallation().APP_PATH;

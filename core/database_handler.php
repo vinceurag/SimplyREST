@@ -22,7 +22,8 @@ class DatabaseHandler {
      * @return connection
      */
     public function newConnection() {
-        $this->connection = new mysqli("localhost", "root", "", "test_db");
+        $database = Core::getDbData();
+        $this->connection = new mysqli($database['host'], $database['user'], $database['password'], $database['database']);
         if(mysqli_connect_errno()) {
             trigger_error("Error connecting to the database: ".$this->connection->error, E_USER_ERROR);
         }

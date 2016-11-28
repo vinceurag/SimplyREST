@@ -1,6 +1,6 @@
 <?php
 /**
- * SimplyREST 
+ * SimplyREST
  *
  * @author Vince Urag
  */
@@ -43,6 +43,15 @@ class Core {
 
     public static function testInstallation() {
         return "Successfully installed!";
+    }
+
+    public static function getDbData() {
+
+        include APP_PATH."config/database.php";
+
+        $database = $db;
+
+        return $database;
     }
 
 

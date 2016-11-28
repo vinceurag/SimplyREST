@@ -1,4 +1,5 @@
 <?php
+if (!defined('SRKEY')){echo'This file can only be called via the main index.php file, and not directly';exit();}
 
 /**
  * Demo
