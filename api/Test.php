@@ -12,6 +12,7 @@ class Test extends SR_Controller {
         parent::__construct();
         $this->load("anothermodel");
         $this->load("jwt");
+        $this->load("mail");
     }
 
     public function get_index() {
@@ -22,6 +23,11 @@ class Test extends SR_Controller {
 
 
     public function get_nameage($name, $age) {
-        echo "Name: {$name} \n Age: {$age}";
+        echo "Name: {$name} \n Age: {$age}\n";
+        $email = $this->mail->sendMail(array("vinceuragvfx@gmail.com", "vince@urag.co"), array("Vince Urag" => "vinceurag@vince.com"), "Test Subject", "Hello! This is the test body.");
+        if($email) {
+            echo "sent";
+        }
+
     }
 }
