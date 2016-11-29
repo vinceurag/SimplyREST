@@ -16,11 +16,11 @@ class Users extends SR_Controller {
 
     public function get_index() {
         $auth = json_decode($this->jwt->check(), true);
-        $auth['authorization'] = "authorized";
+        // $auth['authorization'] = "authorized";
         if($auth['authorization'] == "authorized") {
             $result = $this->model->getUsers();
-            var_dump($result);
-            // $this->sendResponse($result, HTTP_Status::HTTP_OK);
+            // var_dump($result);
+            $this->sendResponse($result, HTTP_Status::HTTP_OK);
         } else {
             $this->sendResponse(array("error" => "unauthorized"), HTTP_Status::HTTP_UNAUTHORIZED);
         }
