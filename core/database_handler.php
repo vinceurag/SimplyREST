@@ -49,6 +49,7 @@ class DatabaseHandler {
         }
 
         if(!is_bool($result)) {
+            $resultSet = array();
             while($row = $result->fetch_assoc()) {
                 $resultSet[] = $row;
             }
@@ -98,8 +99,194 @@ class DatabaseHandler {
         return $this->connection->affected_rows;
     }
 
-    public function test(){
-        echo "test";
+    /**
+     * Get rows based on conditions (associative array)
+     * @param  [String] $table      table name
+     * @param  [array] $conditions conditions in associative array
+     * @return [array]             rows in array form
+     */
+    public function get_row($table, $conditions) {
+
+        $condString = "";
+        $paramPlaceholder = array("");
+        $ctrConditions = 0;
+        if(is_array($conditions)) {
+            $ctrConditions = count($conditions);
+            $condKeys = array_keys($conditions);
+            $lastCondKey = array_pop($condKeys);
+            foreach ($conditions as $column => $value) {
+                // populate the param placeholder
+                if(gettype($value) == "string") {
+                    $paramPlaceholder[0].="s";
+                } else if(gettype($value) == "integer") {
+                    $paramPlaceholder[0].="i";
+                } else if(gettype($value) == "double") {
+                    $paramPlaceholder[0].="d";
+                }
+
+                if($column == $lastCondKey) {
+                    $condString = $condString."BINARY ".$column."=?";
+                } else {
+                    $condString = $condString."BINARY ".$column."=? AND ";
+                }
+
+                $paramPlaceholder[] =& $conditions[$column];
+            }
+
+            $sqlStatement =  "SELECT * FROM {$table} WHERE ".$condString;
+
+            if($statement = $this->connection->prepare($sqlStatement)) {
+                $hits = array();
+
+                call_user_func_array(array($statement, 'bind_param'), $paramPlaceholder);
+                $result = $statement->execute();
+                $meta = $statement->result_metadata();
+
+                while ($field = $meta->fetch_field()) {
+                    $params[] = &$row[$field->name];
+                }
+
+                call_user_func_array(array($statement, 'bind_result'), $params);
+                while ($statement->fetch()) {
+                    foreach($row as $key => $val) {
+                        $c[$key] = $val;
+                    }
+                    $hits[] = $c;
+                }
+                $statement->close();
+                return $hits;
+            } else {
+                trigger_error("can't prepare statement: ".$this->connection->error, E_USER_ERROR);
+            }
+
+        } else {
+            trigger_error("conditions must be in associative array form", E_USER_ERROR);
+        }
+    }
+
+    /**
+     * get value based on conditions
+     * @param  [String] $table       [table name]
+     * @param  [String] $column_name [column name]
+     * @param  [array] $conditions  [conditions in array form]
+     * @return [String]              [value]
+     */
+    public function get_value($table, $column_name, $conditions) {
+        $condString = "";
+        $paramPlaceholder = array("");
+        $ctrConditions = 0;
+        if(is_array($conditions)) {
+            $ctrConditions = count($conditions);
+            $condKeys = array_keys($conditions);
+            $lastCondKey = array_pop($condKeys);
+            foreach ($conditions as $column => $value) {
+                // populate the param placeholder
+                if(gettype($value) == "string") {
+                    $paramPlaceholder[0].="s";
+                } else if(gettype($value) == "integer") {
+                    $paramPlaceholder[0].="i";
+                } else if(gettype($value) == "double") {
+                    $paramPlaceholder[0].="d";
+                }
+
+                if($column == $lastCondKey) {
+                    $condString = $condString."BINARY ".$column."=?";
+                } else {
+                    $condString = $condString."BINARY ".$column."=? AND ";
+                }
+
+                $paramPlaceholder[] =& $conditions[$column];
+            }
+
+            $sqlStatement =  "SELECT {$column_name} FROM {$table} WHERE ".$condString;
+
+            if($statement = $this->connection->prepare($sqlStatement)) {
+                $hits = array();
+
+                call_user_func_array(array($statement, 'bind_param'), $paramPlaceholder);
+                $result = $statement->execute();
+                $statement->store_result();
+                $statement->bind_result($column_res);
+                if(!is_array($column_res) && $statement->fetch() && ($statement->num_rows == 1)) {
+                    return $column_res;
+                } else {
+                    trigger_error("can't return value: result set has multiple rows, try narrowing your conditions", E_USER_ERROR);
+                }
+            } else {
+                trigger_error("can't prepare statement: ".$this->connection->error, E_USER_ERROR);
+            }
+
+        } else {
+            trigger_error("conditions must be in associative array form", E_USER_ERROR);
+        }
+    }
+
+    /**
+     * check if row exists based on conditions
+     * @param  [String] $table       [table name]
+     * @param  [array] $conditions  [conditions in array form]
+     * @return [array]              [array of values]
+     */
+    public function has_row($table, $conditions) {
+        $condString = "";
+        $paramPlaceholder = array("");
+        $ctrConditions = 0;
+        if(is_array($conditions)) {
+            $ctrConditions = count($conditions);
+            $condKeys = array_keys($conditions);
+            $lastCondKey = array_pop($condKeys);
+            foreach ($conditions as $column => $value) {
+                // populate the param placeholder
+                if(gettype($value) == "string") {
+                    $paramPlaceholder[0].="s";
+                } else if(gettype($value) == "integer") {
+                    $paramPlaceholder[0].="i";
+                } else if(gettype($value) == "double") {
+                    $paramPlaceholder[0].="d";
+                }
+
+                if($column == $lastCondKey) {
+                    $condString = $condString."BINARY ".$column."=?";
+                } else {
+                    $condString = $condString."BINARY ".$column."=? AND ";
+                }
+
+                $paramPlaceholder[] =& $conditions[$column];
+            }
+
+            $sqlStatement =  "SELECT * FROM {$table} WHERE ".$condString;
+
+            if($statement = $this->connection->prepare($sqlStatement)) {
+                $hits = array();
+
+                call_user_func_array(array($statement, 'bind_param'), $paramPlaceholder);
+                $result = $statement->execute();
+                $meta = $statement->result_metadata();
+
+                while ($field = $meta->fetch_field()) {
+                    $params[] = &$row[$field->name];
+                }
+
+                call_user_func_array(array($statement, 'bind_result'), $params);
+                while ($statement->fetch()) {
+                    foreach($row as $key => $val) {
+                        $c[$key] = $val;
+                    }
+                    $hits[] = $c;
+                }
+                $statement->close();
+                if(empty($hits)){
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                trigger_error("can't prepare statement: ".$this->connection->error, E_USER_ERROR);
+            }
+
+        } else {
+            trigger_error("conditions must be in associative array form", E_USER_ERROR);
+        }
     }
 
 }

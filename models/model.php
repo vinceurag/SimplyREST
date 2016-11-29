@@ -13,7 +13,10 @@ class Model extends SR_Model {
     }
 
     public function getUsers() {
-        return $this->db->exec("SELECT * FROM users");
+        // return $this->db->get_row("users", array("id"=>1, "user_name"=>"V"));
+        return $this->db->get_value("users", "password", array("id"=>1,"user_name"=>"V"));
+        // return $this->db->has_row("users", array("id"=>1, "user_name"=>"V"));
+        // return $this->db->exec("SELECT * FROM users");
     }
 
     public function editUser($name, $password, $id) {
