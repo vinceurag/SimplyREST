@@ -16,9 +16,11 @@ class Test extends SR_Controller {
     }
 
     public function get_index() {
-        $response = $this->anothermodel->getDummyData();
-
-        $this->sendResponse($response, HTTP_Status::HTTP_OK);
+        // $response = $this->anothermodel->getDummyData();
+        //
+        // $this->sendResponse($response, HTTP_Status::HTTP_OK);
+        //
+        echo SAMPLE_CONST;
     }
 
 

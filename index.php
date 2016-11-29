@@ -34,6 +34,9 @@ require_once("core/core.php");
 $core = Core::singleton();
 $core->getDbData();
 
+// require the constants
+require_once("config/constants.php");
+
 
 // test installation
 // echo $core->testInstallation().APP_PATH;
