@@ -63,35 +63,78 @@ class DatabaseHandler {
      * Update records in the database
      * @param String the table
      * @param array of changes field => value
-     * @param String the condition
+     * @param array the condition
      * @return bool
      */
-    public function update_record( $table, $changes, $condition )
-    {
-        $update = "UPDATE " . $table . " SET ";
-        foreach( $changes as $field => $value )
-        {
-            $update .= "`" . $field . "`='{$value}',";
-        }
+    public function update_row($table, $changes, $conditions) {
+        $condString = "";
+        $changeString = "";
+        $paramPlaceholder = array("");
+        if(is_array($conditions) && is_array($changes)) {
+            $condKeys = array_keys($conditions);
+            $changesKeys = array_keys($changes);
+            $lastCondKey = array_pop($condKeys);
+            $lastChangeKey = array_pop($changesKeys);
+            foreach ($changes as $column => $value) {
+                // populate the param placeholder
+                if(gettype($value) == "string") {
+                    $paramPlaceholder[0].="s";
+                } else if(gettype($value) == "integer") {
+                    $paramPlaceholder[0].="i";
+                } else if(gettype($value) == "double") {
+                    $paramPlaceholder[0].="d";
+                }
 
-        // remove our trailing ,
-        $update = substr($update, 0, -1);
-        if( $condition != '' )
-        {
-            $update .= "WHERE " . $condition;
-        }
+                if($column == $lastChangeKey) {
+                    $changeString = $changeString."".$column."=?";
+                } else {
+                    $changeString = $changeString."".$column."=?, ";
+                }
 
-        $query = $this->connection->query($update);
-        if($query) {
-            return true;
+                $paramPlaceholder[] =& $changes[$column];
+            }
+            foreach ($conditions as $column => $value) {
+                // populate the param placeholder
+                if(gettype($value) == "string") {
+                    $paramPlaceholder[0].="s";
+                } else if(gettype($value) == "integer") {
+                    $paramPlaceholder[0].="i";
+                } else if(gettype($value) == "double") {
+                    $paramPlaceholder[0].="d";
+                }
+
+                if($column == $lastCondKey) {
+                    $condString = $condString."".$column."=?";
+                } else {
+                    $condString = $condString."".$column."=? AND ";
+                }
+
+                $paramPlaceholder[] =& $conditions[$column];
+            }
+
+            $sqlStatement =  "UPDATE {$table} SET ".$changeString." WHERE ".$condString;
+
+            if($statement = $this->connection->prepare($sqlStatement)) {
+                $hits = array();
+
+                call_user_func_array(array($statement, 'bind_param'), $paramPlaceholder);
+                $result = $statement->execute();
+                return array("status" => $result, "affected_rows"=>$statement->affected_rows);
+            } else {
+                trigger_error("can't prepare statement: ".$this->connection->error, E_USER_ERROR);
+            }
+
         } else {
-            return false;
+            trigger_error("conditions must be in associative array form", E_USER_ERROR);
         }
 
     }
 
     /**
      * Gets the number of affected rows from the previous query
+     *
+     * NOTE: only applicable to queries from exec
+     *
      * @return int the number of affected rows
      */
     public function affectedRows()
