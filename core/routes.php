@@ -63,7 +63,7 @@ class Routes
                 $class_name = $this->_callList[$isMatchKey];
                 $obj = new $class_name();
                 $methodname = $http_method."_index";
-                if(method_exists($obj, $methodname)){
+                if(method_exists($obj, $methodname)) {
                     $obj->$methodname();
                 } else {
                     header('Content-Type: application/json');
@@ -79,14 +79,13 @@ class Routes
                 } else {
                     $method_exec = $http_method."_".$method_exec[1];
                 }
-                if(method_exists($obj, $method_exec)){
+                if(method_exists($obj, $method_exec)) {
                     call_user_func_array(array($obj, $method_exec), $replacementValues);
                 } else {
                     header('Content-Type: application/json');
                     http_response_code(404);
                     echo json_encode(array("error" => "no routes matched", "details" => "check if routes has been configured properly"));
                 }
-
             } else {
                 echo "No routes found";
             }
