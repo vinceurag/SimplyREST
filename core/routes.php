@@ -79,7 +79,7 @@ class Routes
                 } else {
                     $method_exec = $http_method."_".$method_exec[1];
                 }
-                if(method_exists($obj, $methodname)){
+                if(method_exists($obj, $method_exec)){
                     call_user_func_array(array($obj, $method_exec), $replacementValues);
                 } else {
                     header('Content-Type: application/json');
