@@ -289,4 +289,59 @@ class DatabaseHandler {
         }
     }
 
+    /**
+     * inserts a row based on associative array
+     * @param  String $table       table name
+     * @param  array $valuesArray associative arrat $arr['column_name'] = $value
+     * @return boolean              returns true if successful
+     */
+    public function insert_row($table, $valuesArray) {
+        $condString = "";
+        $paramPlaceholder = array("");
+        $ctrConditions = 0;
+        $colString = "";
+        if(is_array($valuesArray)) {
+            $ctrConditions = count($valuesArray);
+            $condKeys = array_keys($valuesArray);
+            $lastCondKey = array_pop($condKeys);
+            foreach ($valuesArray as $column => $value) {
+                // populate the param placeholder
+                if(gettype($value) == "string") {
+                    $paramPlaceholder[0].="s";
+                } else if(gettype($value) == "integer") {
+                    $paramPlaceholder[0].="i";
+                } else if(gettype($value) == "double") {
+                    $paramPlaceholder[0].="d";
+                }
+
+                if($column == $lastCondKey) {
+                    $condString = $condString."?";
+                    $colString = $colString.$column;
+                } else {
+                    $condString = $condString."?, ";
+                    $colString = $colString.$column.", ";
+                }
+
+                $paramPlaceholder[] =& $valuesArray[$column];
+            }
+
+            $sqlStatement =  "INSERT INTO {$table}(".$colString.") VALUES(".$condString.")";
+
+            if($statement = $this->connection->prepare($sqlStatement)) {
+                call_user_func_array(array($statement, 'bind_param'), $paramPlaceholder);
+                $result = $statement->execute();
+                if($result){
+                    return true;
+                } else {
+                    trigger_error("Can't insert to database: ".$statement->error, E_USER_ERROR);
+                }
+
+            } else {
+                trigger_error("can't prepare statement: ".$this->connection->error, E_USER_ERROR);
+            }
+
+        } else {
+            trigger_error("conditions must be in associative array form", E_USER_ERROR);
+        }
+    }
 }
