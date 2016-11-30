@@ -63,7 +63,13 @@ class Routes
                 $class_name = $this->_callList[$isMatchKey];
                 $obj = new $class_name();
                 $methodname = $http_method."_index";
-                $obj->$methodname();
+                if(method_exists($obj, $methodname)){
+                    $obj->$methodname();
+                } else {
+                    header('Content-Type: application/json');
+                    http_response_code(404);
+                    echo json_encode(array("error" => "no routes matched", "details" => "check if routes has been configured properly"));
+                }
             } else if (count($fakeUri) > 1){
                 $method_exec = explode("/", $this->_callList[$isMatchKey]);
                 $class_name = $method_exec[0];
@@ -73,7 +79,14 @@ class Routes
                 } else {
                     $method_exec = $http_method."_".$method_exec[1];
                 }
-                call_user_func_array(array($obj, $method_exec), $replacementValues);
+                if(method_exists($obj, $methodname)){
+                    call_user_func_array(array($obj, $method_exec), $replacementValues);
+                } else {
+                    header('Content-Type: application/json');
+                    http_response_code(404);
+                    echo json_encode(array("error" => "no routes matched", "details" => "check if routes has been configured properly"));
+                }
+
             } else {
                 echo "No routes found";
             }
