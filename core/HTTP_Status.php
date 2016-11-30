@@ -25,4 +25,10 @@ class HTTP_Status {
      * @var integer
      */
     const HTTP_UNAUTHORIZED = 401;
+
+    /**
+     * invalid/malformed request
+     * @var integer
+     */
+    const HTTP_BAD_REQUEST = 400;
 }
