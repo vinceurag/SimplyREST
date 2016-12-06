@@ -1,5 +1,5 @@
 # SimplyREST
-Simple REST server written in PHP.
+A micro-framework written in PHP that will help you build RESTful APIs.
 
 ## Getting Started
 

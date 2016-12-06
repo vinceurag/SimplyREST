@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 28, 2016 at 06:12 PM
+-- Generation Time: Dec 01, 2016 at 04:25 AM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 5.6.24
 
@@ -38,7 +38,9 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `user_name`, `password`) VALUES
 (1, 'V', 'simplerest'),
-(2, 'New Name', 'new_pass');
+(2, 'Kabedng', 'new_pass'),
+(3, 'V', 'pangalawa'),
+(4, 'from insert', 'testing');
 
 --
 -- Indexes for dumped tables
@@ -58,7 +60,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

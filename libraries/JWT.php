@@ -8,7 +8,7 @@
  * @author Neuman Vong <neuman@twilio.com>
  * @minor changes by Vince Urag <check()>
  */
-class JWT
+class Jwt
 {
 
         /**
