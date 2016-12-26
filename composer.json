@@ -1,6 +1,13 @@
 {
     "name": "vinceurag/simplyrest",
     "description": "A micro-framework written in PHP that will help you build RESTful APIs.",
+    "authors": [
+        {
+            "name": "Vince Urag",
+            "email": "vinceuragvfx@gmail.com"
+        }
+    ],
+    "minimum-stability": "1.0.1",
     "require": {
         "php": "^5.3.3 || ^7.0"
     }
