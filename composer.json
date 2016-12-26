@@ -7,7 +7,7 @@
             "email": "vinceuragvfx@gmail.com"
         }
     ],
-    "minimum-stability": "1.0.1",
+    "minimum-stability": "stable",
     "require": {
         "php": "^5.3.3 || ^7.0"
     }
