@@ -1,5 +1,5 @@
 {
-    "name": "vinceurag/SimplyREST",
+    "name": "vinceurag/simplyrest",
     "description": "A micro-framework written in PHP that will help you build RESTful APIs.",
     "require": {
         "php": "^5.3.3 || ^7.0"
