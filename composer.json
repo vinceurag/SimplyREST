@@ -1,16 +1,21 @@
 {
     "name": "vinceurag/simplyrest",
     "description": "A micro-framework written in PHP that will help you build RESTful APIs.",
-    "type": "project",
-    "authors": [
+    "repositories": [
         {
-            "name": "Vince Urag",
-            "email": "vinceuragvfx@gmail.com"
+            "type":"package",
+            "package": {
+              "name": "vinceurag/simplyrest",
+              "version":"master",
+              "source": {
+                  "url": "https://github.com/vinceurag/SimplyREST",
+                  "type": "git",
+                  "reference":"master"
+                }
+            }
         }
     ],
-    "minimum-stability": "stable",
-    "license": "MIT",
     "require": {
-        "php": "^5.3.3 || ^7.0"
+        "vinceurag/simplyrest": "master"
     }
 }
