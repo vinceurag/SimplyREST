@@ -20,10 +20,14 @@ Composer
 Make sure ```composer``` is installed on your machine.
 
 Download the SimplyREST installer via composer
-``` composer global require vinceurag/sr_installer ```
+```
+composer global require vinceurag/sr_installer
+```
 
 Initialize a new app
-``` srest new myapi ```
+```
+srest new myapi
+```
 
 Verify that your web server and mysql is started.
 
