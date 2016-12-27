@@ -12,6 +12,7 @@ Some things that you need
 ```
 MySQL Server
 Web Server
+Composer
 ```
 
 ### Installing
