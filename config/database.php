@@ -8,5 +8,5 @@
 
 $db['host'] = 'localhost';
 $db['user'] = 'root';
-$db['password'] = 'root';
+$db['password'] = '';
 $db['database'] = 'test_db';
