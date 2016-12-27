@@ -1,23 +1,16 @@
 {
     "name": "vinceurag/simplyrest",
     "description": "A micro-framework written in PHP that will help you build RESTful APIs.",
-    "repositories": [
-        {
-            "type":"package",
-            "package": {
-              "name": "vinceurag/simplyrest",
-              "version":"v1.0.1",
-              "source": {
-                  "url": "https://github.com/vinceurag/SimplyREST",
-                  "type": "git",
-                  "reference":"master"
-                }
-            }
-        }
-    ],
-    "minimum-stability": "stable",
+    "keywords": ["framework", "SimplyREST"],
     "license": "MIT",
-    "require": {
-        "vinceurag/simplyrest": "v1.0.1"
+    "type": "project",
+    "scripts": {
+        "post-root-package-install": [
+            "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ]
+    },
+    "config": {
+        "preferred-install": "dist",
+        "sort-packages": true
     }
 }
