@@ -16,11 +16,13 @@ Web Server
 
 ### Installing
 
-Clone this repository.
+Make sure ```composer``` is installed on your machine.
 
-```
-git clone https://github.com/vinceurag/SimplyREST.git
-```
+Download the SimplyREST installer via composer
+``` composer global require vinceurag/sr_installer ```
+
+Initialize a new app
+``` srest new myapi ```
 
 Verify that your web server and mysql is started.
 
@@ -36,7 +38,7 @@ Test if it's working.
 Go to ```<server>/<directory where you put this project>/SimplyREST/```
 For example you're using XAMPP and you cloned this project to ```htdocs```, you need to go to
 ```
-http://localhost/SimplyREST/
+http://localhost/myapi/
 ```
 You should see something like:
 
