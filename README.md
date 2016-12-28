@@ -54,8 +54,8 @@ You should see something like:
 
 ```
 {
-"status" : "successful",
-"details" : "framework was installed successfully"
+    "status" : "successful",
+    "details" : "framework was installed successfully"
 }
 ```
 
@@ -206,14 +206,14 @@ Sample response:
 
 ```
 {
-  "consumerKey": "YOUR-CONSUMER-KEY",
-  "userId": 1,
-  "issuedAt": "11/29/2016 00:47:42 AMNov",
-  "data": {
-    "name": "New Name",
-    "pass": "new_pass"
-  },
-  "authorization": "authorized"
+    "consumerKey": "YOUR-CONSUMER-KEY",
+    "userId": 1,
+    "issuedAt": "11/29/2016 00:47:42 AMNov",
+    "data": {
+        "name": "New Name",
+        "pass": "new_pass"
+    },
+    "authorization": "authorized"
 }
 ```
 
