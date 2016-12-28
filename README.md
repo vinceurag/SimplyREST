@@ -17,14 +17,16 @@ Composer
 
 ### Installing
 
-Make sure ```composer``` is installed on your machine.
+Make sure ```composer``` is installed on your machine and the ```$HOME/.composer/vendor/bin``` directory is in your $PATH so the ```srest``` executable can be located by your system.
 
 Download the SimplyREST installer via composer
+
 ```
 composer global require vinceurag/sr_installer
 ```
 
 Initialize a new app
+
 ```
 srest new myapi
 ```
@@ -32,6 +34,7 @@ srest new myapi
 Verify that your web server and mysql is started.
 
 Modify ```config/database.php``` with your database details.
+
 ```
 $db['host'] = 'localhost';
 $db['user'] = 'root';
@@ -42,9 +45,11 @@ $db['database'] = 'test_db';
 Test if it's working.
 Go to ```<server>/<directory where you put this project>/SimplyREST/```
 For example you're using XAMPP and you cloned this project to ```htdocs```, you need to go to
+
 ```
 http://localhost/myapi/
 ```
+
 You should see something like:
 
 ```
@@ -58,8 +63,13 @@ Play around with the controllers on ```/api```
 
 ## How To Use
 
-``` DO NOT MODIFY ANYTHING IN THE /core FOLDER AND index.php ```
-``` SAMPLE DATABASE SCHEMA IN config/test_db.sql ```
+```
+DO NOT MODIFY ANYTHING IN THE /core FOLDER AND index.php
+```
+
+```
+SAMPLE DATABASE SCHEMA IN config/test_db.sql
+```
 
 ### Controllers
 
@@ -72,12 +82,15 @@ When creating a function, this should be the format: ```HTTPMETHOD_functionname(
 If the user accessed /name using the GET method, this method will be invoked. Else, if the user accessed it via POST method, the post_name will be invoked.
 
 To send a response, use the function:
+
 ```
 $this->sendResponse($arrayData, HTTP_Status::HTTP_OK)
 ```
+
 ```$this->sendResponse()``` takes in two parameters, the data you want to be the response body (in array) and a status code.
 
 Status codes are defined in ```core/HTTP_Status.php```
+
 ```
 HTTP_OK = 200
 
@@ -89,15 +102,19 @@ HTTP_UNAUTHORIZED = 401
 ```
 
 To access the POST or PUT json sent to the server, use the function:
+
 ```
 $anyVariable $this->getJsonData()
 ```
+
 This function will return the json sent to the server in an array format.
 
 To load the model, use the function:
+
 ```
 $this->load("model_name")
 ```
+
 ```$model_name``` is the class name of your model. You should load the model in your controller's constructor. To use the loaded model, you just need to append the ```model_name``` to ```$this->```. For example, I loaded the model ```anothermodel``` in the constructor ```$this->load_model("anothermodel")```, to access it inside the functions in my controller, I can call ```$this->anothermodel->getUser()``` assuming there is a getUser()  function inside my model.
 
 ### Models
@@ -106,15 +123,19 @@ Models are located under ```/models```
 Every model MUST extend the SR_Model.
 
 To make a query to the database, use the function:
+
 ```
 $this->db->exec("SELECT * FROM tbl_users");
 ```
+
 If the SQL statement is a ```SELECT``` statement, this function will return an array of the result (which you can directly send as a response in the controller). Else, this will return a bool.
 
 To ```UPDATE``` a row, use the function:
+
 ```
 $this->db->udapte_record($table, $arrayChanges, "id=condition");
 ```
+
 If a record was successfully updated, it will return a success json.
 
 
@@ -123,6 +144,7 @@ If a record was successfully updated, it will return a success json.
 Routes are the heart and soul of this project. It will determine which class and function will be called.
 
 The structure of the route should always be
+
 ```
 class_name/function_name/
 ```
@@ -134,17 +156,20 @@ You can customize the routes in the ```config/routes.php``` folder.
 ```
 $route['/about'] = "test";
 ```
+
 Here, we are routing ```/about``` to execute the get_index() of the Test class.
 
 ```
 $route['/about/name/:param'] = "test/name";
 ```
+
 We can also add parameters by putting ```:param``` in the place wherein we expect a parameter.
 This route will invoke the get_name($a) function of Test class, passing any value in place of the ```:param``` to the function.
 
 ```
 $route['about/name/:param/age/:param'] = "test/nameage";
 ```
+
 This project also supports multiple parameters. In this example we passed a name and age in that format. By this route, we tell our REST server to invoke the get_nameage($name, $age) method in the Test class. Also, passing the all the parameters.
 
 ### Libraries
@@ -152,6 +177,7 @@ This project also supports multiple parameters. In this example we passed a name
 Libraries are located under ```/libraries```
 
 You should load the needed libraries in the constructor of the controller via the command:
+
 ```
 $this->load("library_name")
 ```
@@ -161,18 +187,23 @@ $this->load("library_name")
 The JWT Library can be used to generate a token.
 
 To generate a token:
+
 ```
 $this->jwt->generate_token($user_id, $arrayPayload)
 ```
+
 ```$user_id``` is the unique identifier of the user.
 ```$arrayPayload``` is the custom payload you want to add to the token
 
 To check if the user passed a VALID json web token to the authorization header:
+
 ```
 $this->jwt->check()
 ```
+
 If it's a valid token, it will return the decoded token and the authorization status ("authorized" or "unauthorized").
 Sample response:
+
 ```
 {
   "consumerKey": "YOUR-CONSUMER-KEY",
