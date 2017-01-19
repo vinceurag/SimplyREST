@@ -1,4 +1,5 @@
 <?php
+if (!defined('SRKEY')){echo'This file can only be called via the main index.php file, and not directly';exit();}
 
 /**
  * Database handler - for access and management
@@ -49,10 +50,11 @@ class DatabaseHandler {
         }
 
         if(!is_bool($result)) {
-            $resultSet = array();
-            while($row = $result->fetch_assoc()) {
-                $resultSet[] = $row;
-            }
+            // $resultSet = array();
+            // while($row = $result->fetch_assoc()) {
+            //     $resultSet[] = $row;
+            // }
+            $resultSet = $this->cast_query_results($result);
             return $resultSet;
         } else {
             return $result;
@@ -386,5 +388,37 @@ class DatabaseHandler {
         } else {
             trigger_error("conditions must be in associative array form", E_USER_ERROR);
         }
+    }
+
+    public function cast_query_results($rs) {
+        $fields = mysqli_fetch_fields($rs);
+        $data = array();
+        $types = array();
+        foreach($fields as $field) {
+            switch($field->type) {
+                case 1:
+                    $types[$field->name] = 'int';
+                    break;
+                case 3:
+                    $types[$field->name] = 'int';
+                    break;
+                case 4:
+                    $types[$field->name] = 'float';
+                    break;
+                case 5:
+                    $types[$field->name] = 'double';
+                    break;
+                default:
+                    $types[$field->name] = 'string';
+                    break;
+            }
+        }
+        while($row=mysqli_fetch_assoc($rs)) array_push($data,$row);
+        for($i=0;$i<count($data);$i++) {
+            foreach($types as $name => $type) {
+                settype($data[$i][$name], $type);
+            }
+        }
+        return $data;
     }
 }
