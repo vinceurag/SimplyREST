@@ -15,6 +15,8 @@ class SR_Model {
      * Connect to the database
      */
     public function __construct() {
+        include APP_PATH.'config/config.php';
+        date_default_timezone_set($config['timezone']);
         $this->db = new DatabaseHandler();
         $this->db->newConnection();
     }

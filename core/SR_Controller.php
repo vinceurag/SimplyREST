@@ -11,6 +11,8 @@ class SR_Controller extends SR_Model {
 
     public function __construct() {
         parent::__construct();
+        include APP_PATH.'config/config.php';
+        date_default_timezone_set($config['timezone']);
         include APP_PATH."core/HTTP_Status.php";
     }
 
